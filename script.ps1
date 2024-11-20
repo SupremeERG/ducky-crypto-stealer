@@ -1,5 +1,5 @@
 
-$discord_webhook_uri = $args[0] #"<your discord webhook uri>"
+$discord_webhook_uri = $args[0]
 
 
 
